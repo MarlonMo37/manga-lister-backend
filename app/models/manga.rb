@@ -1,4 +1,5 @@
 class Manga < ApplicationRecord
+    has_many :reviews
     has_many :manga_lists
     has_many :manga_genres
     has_many :lists, through: :manga_lists
