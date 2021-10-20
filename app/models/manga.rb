@@ -43,13 +43,15 @@ class Manga < ApplicationRecord
                 manga_info["date_end"] = dates[1]
             end
 
-            current_manga = self.fing_or_create_by(manga_info)
+            current_manga = self.find_or_create_by(manga_info)
 
             genre_names = information["genres"].map{|genre| genre["name"]}
 
             self.make_genres(current_manga, genre_names)
-
         end
+    end
+
+    def self.make_genres(manga, genres)
         byebug
     end
 end
