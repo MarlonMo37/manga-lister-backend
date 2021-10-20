@@ -24,7 +24,7 @@ class Manga < ApplicationRecord
         ids =  self.get_manga_ids
 
         ids.each do |id|
-            sleep(0.5)
+            sleep(10.0)
             manga_url = "https://api.jikan.moe/v3/manga/#{id}"
             url = URI(manga_url)
             response = Net::HTTP.get(url)
