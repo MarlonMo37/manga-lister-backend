@@ -14,10 +14,42 @@ class Manga < ApplicationRecord
     def self.get_manga_ids
         ids_url = "https://api.jikan.moe/v3/top/manga"
         url = URI(ids_url)
-
         response = Net::HTTP.get(url)
         information = JSON.parse(response)
 
         information["top"].map {|manga| manga["mal_id"]}
+    end
+
+    def self.make_mangas
+        ids =  self.get_manga_ids
+
+        ids.each do |id|
+            sleep(0.5)
+            manga_url = "https://api.jikan.moe/v3/manga/#{id}"
+            url = URI(manga_url)
+            response = Net::HTTP.get(url)
+            information = JSON.parse(response)
+
+            manga_info = {}
+            manga_info["name"] = information["title_english"]
+            manga_info["image_url"] = information["image_url"]
+            manga_info["synopsis"] = information["synopsis"]
+            manga_info["score"] = information["score"]
+            dates = information["published"]["string"].split(" to ")
+            manga_info["date_start"] = dates[0]
+            if dates[1] == "?"
+                manga_info["date_end"] = "ongoing"
+            else 
+                manga_info["date_end"] = dates[1]
+            end
+
+            current_manga = self.fing_or_create_by(manga_info)
+
+            genre_names = information["genres"].map{|genre| genre["name"]}
+
+            self.make_genres(current_manga, genre_names)
+
+        end
+        byebug
     end
 end
