@@ -52,6 +52,11 @@ class Manga < ApplicationRecord
     end
 
     def self.make_genres(manga, genres)
-        byebug
+        genres.each do |genre_name|
+            genre = Genre.find_or_create_by(name: genre_name)
+            if !(manga.genres.include?(genre))
+                manga.genres << genre
+            end
+        end 
     end
 end
