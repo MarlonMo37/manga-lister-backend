@@ -46,6 +46,6 @@ class MangasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def manga_params
-      params.fetch(:manga, {})
+      params.fetch(:manga).permit(:listed, :id)
     end
 end
