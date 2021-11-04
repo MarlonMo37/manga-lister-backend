@@ -1,24 +1,37 @@
-# README
+# Manga Lister Backend
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the Manga Lister backend, please follow the instructions below to set up. Once thats done, you can move on to the frontend here https://github.com/MarlonMo37/manga-lister
 
-Things you may want to cover:
+## Installation
 
-* Ruby version
+- Clone repository
 
-* System dependencies
+- Run bundle to install necessary gems
 
-* Configuration
+```bash
+    bundle install
+```
 
-* Database creation
+- Use Rake to create database and run migrations
 
-* Database initialization
+```bash
+rake db:create
+```
 
-* How to run the test suite
+```bash
+rake db:migrate
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+- Use Rake to seed database
 
-* Deployment instructions
+```bash
+rake db:seed
+```
 
-* ...
+- Use rails s to start your server
+
+```bash
+rails s
+```
+
+- Once your done you can move to the frontend here https://github.com/MarlonMo37/manga-lister
